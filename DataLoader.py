@@ -68,7 +68,7 @@ class Loader:
         categorial_dummies = categorial_dummies.reset_index(drop=True)
 
         # put modified data back to one dataframe -> ML ready
-        self.data_prepared = pd.DataFrame(categorial_dummies)
+        self.data_prepared = pd.DataFrame(categorial_dummies, dtype=np.uint8)
         self.data_prepared["living_area"] = numeric_standardized["living_area"]
         self.data_prepared["land_area"] = numeric_standardized["land_area"]
         self.data_prepared["lat"] = numeric_standardized["lat"]
