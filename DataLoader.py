@@ -6,10 +6,20 @@ from sklearn.model_selection import train_test_split
 
 
 def show_info(data_to_show):
+    """
+    show info about dataset
+    :param data_to_show: data
+    :return: nothing
+    """
     data_to_show.info()
 
 
 def show_sample(data_to_show):
+    """
+    shows sample of dataset with custom settings to show every column in non-interacitve shell
+    :param data_to_show: data
+    :return: nothing
+    """
     pd.set_option('display.max_columns', 500)
     pd.set_option('display.width', 5000)
     to_show = data_to_show.sample(50)
@@ -17,8 +27,15 @@ def show_sample(data_to_show):
 
 
 class Loader:
+    """
+    Loader() class handles methods and variables for data preparation and manipulation to get data ML ready
+    """
 
     def __init__(self, data_path):
+        """
+        initialize Loader class
+        :param data_path: path to dataset, that needs to be prepared
+        """
         self.data = pd.read_csv(data_path)
         self.data_prepared = None
 
@@ -26,6 +43,11 @@ class Loader:
         self.scaler_price = MinMaxScaler(feature_range=(-1, 1))
 
     def clean_data(self):
+        """
+        cleans data. Only data for flats to sell remains. Erase data with no price tag.
+        converts data to correct data type
+        :return: modifies self.data. nothing to return
+        """
         self.data = self.data[self.data["housing"] == "Byty"]
         self.data = self.data[self.data["housing_type"] == "Predaj"]
 
@@ -49,6 +71,11 @@ class Loader:
         self.data["land_area"] = self.data["land_area"].astype("float64")
 
     def prepare_data(self):
+        """
+        define scalers for numeric data and different scaler for price, so we can destandardize price after prediction.
+        Uses encoder for categorial attributes. Creates ML ready dataset
+        :return: updates self.data_prepared and scalers. nothing to return
+        """
         numeric_data = pd.DataFrame(self.data[["living_area", "land_area", "lat", "long"]])
 
         # use numeric attribute scaler model and standardize numeric data
@@ -77,6 +104,12 @@ class Loader:
         self.data_prepared["price"] = price_standardized
 
     def split_data(self, test_size = 0.2, random_state = 123):
+        """
+        splits data to train and test datasets
+        :param test_size: test dataset size in percent relative to whole dataset
+        :param random_state: seed for reproductions
+        :return: X_train, X_test, y_train, y_test
+        """
         X = pd.DataFrame(self.data_prepared)
         y = pd.DataFrame(self.data_prepared.price)
         del X["price"]
