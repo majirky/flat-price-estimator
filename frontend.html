@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Flat Attributes</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- <script src="node_modules/axios/dist/axios.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> 
+</head>
+  </head>
+  <body>
+    <div id="app">
+      <label for="num_rooms">Number of Rooms:</label>
+      <input type="number" id="num_rooms" v-model="numRooms">
+      <br>
+      <label for="sq_meters">Square Meters:</label>
+      <input type="number" id="sq_meters" v-model="squareMeters">
+      <br>
+      <label for="num_bathrooms">Number of Bathrooms:</label>
+      <input type="number" id="num_bathrooms" v-model="numBathrooms">
+      <br>
+      <button @click="submitForm">Submit</button>
+    </div>
+
+    <script>
+      var app = new Vue({
+        el: '#app',
+        data: {
+          numRooms: null,
+          squareMeters: null,
+          numBathrooms: null,
+        },
+        methods: {
+          submitForm: function() {
+            // Make a POST request to your Python Flask backend
+            axios.post('http://127.0.0.1:5000/api/predict_price', {
+              num_rooms: this.numRooms,
+              square_meters: this.squareMeters,
+              num_bathrooms: this.numBathrooms,
+            })
+            .then(function(response) {
+              // Handle the response from the server
+              console.log(response);
+            })
+            .catch(function(error) {
+              // Handle any errors
+              console.log(error);
+            });
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
