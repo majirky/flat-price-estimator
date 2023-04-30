@@ -9,13 +9,14 @@ if __name__ == '__main__':
     loader = Loader("data/data_kosice.csv")
 
     loader.clean_data()
-    # loader.show_sample()
+    show_sample(loader.data)
+    show_info(loader.data)
     loader.prepare_data()
-    # loader.show_sample(loader.data_prepared)
+    show_sample(loader.data_prepared)
     X_train, X_test, y_train, y_test = loader.split_data()
     show_info(X_test)
 
-    model = build_nn_model(input_dim=34, depth=2, dropout=True)
-    model.compile(loss='mse', optimizer=Adam(), metrics=['mse'])
-    model.fit(X_train, y_train, epochs=100, batch_size=64, validation_split=0.2, verbose=1)
+    # model = build_nn_model(input_dim=34, depth=2, dropout=True)
+    # model.compile(loss='mse', optimizer=Adam(), metrics=['mse'])
+    # model.fit(X_train, y_train, epochs=100, batch_size=64, validation_split=0.2, verbose=1)
 
