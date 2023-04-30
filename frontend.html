@@ -4,7 +4,8 @@
     <title>houseBot</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/style.css">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -41,7 +42,6 @@
             <option value="mesonet">mesonet</option>
             <option value="bachelors_flat">bachelors flat</option>
           </select>
-          
 
           <label for="city_area">select city area:</label>
           <select id="city_area" name="city_area" v-model="city_area">
@@ -61,7 +61,6 @@
             <option value="nad_jazerom">Košice 4 - Nad jazerom</option>
             <option value="vysne_opatské">Košice 4 - Vyšné opatské</option>
           </select>
-          
 
           <label for="housing_state">select housing state:</label>
           <select id="housing_state" name="housing_state" v-model="housing_state">
@@ -72,19 +71,15 @@
             <option value="original_state">Original state</option>
             <option value="under_construction">Under construction</option>
           </select>
-          
     
           <label for="living_area">Living area:</label>
           <input type="number" id="living_area" name="living_area" step="any" v-model="living_area">
-          
 
           <label for="land_area">Land area:</label>
           <input type="number" id="land_area" name="land_area" step="any" v-model="land_area">
-          
 
           <label for="latitude">Latitude of your building (rounded on 7 digits):</label>
           <input type="number" id="latitude" name="latitude" step="any" v-model="latitude">
-          
 
           <label for="Longitude">Longitude of your building (rounded on 7 digits):</label>
           <input type="number" id="Longitude" name="Longitude" step="any" v-model="longitude">

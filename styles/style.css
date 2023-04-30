@@ -29,8 +29,9 @@
 }
 
 .type{
-    font-family: 'Source Code Pro', monospace;
+    font-family: 'VT323', monospace;
     display: inline-block;
+    color: #252422;
 }
 
 .type::before,
@@ -74,9 +75,13 @@
 }
 
 .inputs{
-    display:grid;
+    display: grid;
     grid-template-columns: max-content max-content;
-    grid-gap:10px;
+    grid-template-rows: auto;
+    grid-gap:15px;
+    height: wrap-content;
+    width: max-content;
+    margin: 0 auto;
 }
 
 label{
@@ -84,10 +89,31 @@ label{
     width: 45%;
     display: block;*/
     text-align: right;
+    font-family: 'VT323', monospace;
 }
 
-button{
-    position: relative;
+select{
+    background-color: #252422;
+    color: white;
+    -moz-appearance: none; 
+    -webkit-appearance: none; 
+    appearance: none;
+    text-align-last:center; 
+    padding: 3px;
+}
+
+input{
+    background-color: #252422;
+    color: white;
+    border: none;
+    text-align: center;
+    border-radius: 5px;
+    padding: 3px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  display: none;
 }
 
 
