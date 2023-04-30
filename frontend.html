@@ -26,59 +26,75 @@
         <h1>druhe</h1>
       </div>
 
-      <!--
-         #   Column                                      Non-Null Count  Dtype  
----  ------                                      --------------  -----  
- 0   housing_category_1 izbový byt               192 non-null    uint8  
- 1   housing_category_2 izbový byt               192 non-null    uint8  
- 2   housing_category_3 izbový byt               192 non-null    uint8  
- 3   housing_category_4 izbový byt               192 non-null    uint8  
- 4   housing_category_5 a viac izbový byt        192 non-null    uint8  
- 5   housing_category_Apartmán                   192 non-null    uint8  
- 6   housing_category_Garsónka                   192 non-null    uint8  
- 7   housing_category_Mezonet                    192 non-null    uint8  
- 8   city_area_Košice                            192 non-null    uint8  
- 9   city_area_Košice I - Kavečany               192 non-null    uint8  
- 10  city_area_Košice I - Sever                  192 non-null    uint8  
- 11  city_area_Košice I - Staré Mesto            192 non-null    uint8  
- 12  city_area_Košice I - Sídlisko Ťahanovce     192 non-null    uint8  
- 13  city_area_Košice I - Ťahanovce              192 non-null    uint8  
- 14  city_area_Košice II - Lorinčík              192 non-null    uint8  
- 15  city_area_Košice II - Sídlisko KVP          192 non-null    uint8  
- 16  city_area_Košice II - Západ                 192 non-null    uint8  
- 17  city_area_Košice II - Šaca                  192 non-null    uint8  
- 18  city_area_Košice III - Dargovských Hrdinov  192 non-null    uint8  
- 19  city_area_Košice III - Košická Nová Ves     192 non-null    uint8  
- 20  city_area_Košice IV - Juh                   192 non-null    uint8  
- 21  city_area_Košice IV - Krásna                192 non-null    uint8  
- 22  city_area_Košice IV - Nad jazerom           192 non-null    uint8  
- 23  city_area_Košice IV - Vyšné Opátske         192 non-null    uint8  
- 24  housing_state_Developerský projekt          192 non-null    uint8  
- 25  housing_state_Kompletná rekonštrukcia       192 non-null    uint8  
- 26  housing_state_Novostavba                    192 non-null    uint8  
- 27  housing_state_Pôvodný stav                  192 non-null    uint8  
- 28  housing_state_Vo výstavbe                   192 non-null    uint8  
- 29  housing_state_Čiastočná rekonštrukcia       192 non-null    uint8  
- 30  living_area                                 192 non-null    float64
- 31  land_area                                   192 non-null    float64
- 32  lat                                         192 non-null    float64
- 33  long                                        192 non-null    float64
-dtypes: float64(4), uint8(30)
-memory usage: 13.1 KB
-(venv) (base) majirky@pcmajak housing-price-model % 
-      -->
-
       <div class="box" id="app">
-        <label for="num_rooms">Number of Rooms:</label>
-        <input type="number" id="num_rooms" v-model="numRooms">
-        <br>
-        <label for="sq_meters">Square Meters:</label>
-        <input type="number" id="sq_meters" v-model="squareMeters">
-        <br>
-        <label for="num_bathrooms">Number of Bathrooms:</label>
-        <input type="number" id="num_bathrooms" v-model="numBathrooms">
-        <br>
-        <button @click="submitForm">Submit</button>
+
+        <div class="inputs">
+
+          <label for="housing_category"> select flat category:</label>
+          <select id="housing_category" name="housing_category" v-model="housing_category">
+            <option value="rooms1">1 room</option>
+            <option value="rooms2">2 rooms</option>
+            <option value="rooms3">3 rooms</option>
+            <option value="rooms4">4 rooms</option>
+            <option value="rooms5">5+ rooms</option>
+            <option value="apartment">apartment</option>
+            <option value="mesonet">mesonet</option>
+            <option value="bachelors_flat">bachelors flat</option>
+          </select>
+          
+
+          <label for="city_area">select city area:</label>
+          <select id="city_area" name="city_area" v-model="city_area">
+            <option value="kosice">Košice</option>
+            <option value="kavecany">Košice 1 - Kavečany</option>
+            <option value="sever">Košice 1 - Sever</option>
+            <option value="stare_mesto">Košice 1 - Staré Mesto</option>
+            <option value="tahanovce">Košice 1 - Ťahanovce</option>
+            <option value="loricnik">Košice 2 - Loričník</option>
+            <option value="kvp">Košice 2 - Sídlisko KVP</option>
+            <option value="zapad">Košice 2 - Západ</option>
+            <option value="saca">Košice 2 - Šaca</option>
+            <option value="dragovskych_hrdinov">Košice 3 - Dragovských Hrdinov</option>
+            <option value="kosicka_nova_ves">Košice 3 - Košická Nová Ves</option>
+            <option value="juh">Košice 4 - Juh</option>
+            <option value="krasna">Košice 4 - Krásna</option>
+            <option value="nad_jazerom">Košice 4 - Nad jazerom</option>
+            <option value="vysne_opatské">Košice 4 - Vyšné opatské</option>
+          </select>
+          
+
+          <label for="housing_state">select housing state:</label>
+          <select id="housing_state" name="housing_state" v-model="housing_state">
+            <option value="development_project">Development project</option>
+            <option value="complete_reconstruction">Complete reconstruction</option>
+            <option value="partial_reconstruction">Partial reconstrucion</option>
+            <option value="new">New building</option>
+            <option value="original_state">Original state</option>
+            <option value="under_construction">Under construction</option>
+          </select>
+          
+    
+          <label for="living_area">Living area:</label>
+          <input type="number" id="living_area" name="living_area" step="any" v-model="living_area">
+          
+
+          <label for="land_area">Land area:</label>
+          <input type="number" id="land_area" name="land_area" step="any" v-model="land_area">
+          
+
+          <label for="latitude">Latitude of your building (rounded on 7 digits):</label>
+          <input type="number" id="latitude" name="latitude" step="any" v-model="latitude">
+          
+
+          <label for="Longitude">Longitude of your building (rounded on 7 digits):</label>
+          <input type="number" id="Longitude" name="Longitude" step="any" v-model="longitude">
+
+          <br>
+          <button @click="submitForm">Submit</button>
+        </div>
+        
+        
+
       </div>
 
     </div>
@@ -87,17 +103,25 @@ memory usage: 13.1 KB
       var app = new Vue({
         el: '#app',
         data: {
-          numRooms: null,
-          squareMeters: null,
-          numBathrooms: null,
+          housing_category: null,
+          city_area: null,
+          housing_state: null,
+          living_area: null,
+          land_area: null,
+          latitude: null,
+          longitude: null
         },
         methods: {
           submitForm: function() {
             // Make a POST request to your Python Flask backend
             axios.post('http://127.0.0.1:5000/api/predict_price', {
-              num_rooms: this.numRooms,
-              square_meters: this.squareMeters,
-              num_bathrooms: this.numBathrooms,
+              housing_category: this.housing_category,
+              city_area: this.city_area,
+              housing_state: this.housing_state,
+              living_area: this.living_area,
+              land_area: this.land_area,
+              latitude: this.latitude,
+              longitude: this.longitude
             })
             .then(function(response) {
               // Handle the response from the server

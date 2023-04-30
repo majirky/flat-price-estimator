@@ -6,9 +6,17 @@ CORS(app)
 
 @app.route('/api/predict_price', methods=['POST'])
 def predict_price():
-    num_rooms = request.json['num_rooms']
-    square_meters = request.json['square_meters']
-    num_bathrooms = request.json['num_bathrooms']
+    housing_category = request.json["housing_category"]
+    city_area = request.json["city_area"]
+    housing_state = request.json["housing_state"]
+    living_area = request.json["living_area"]
+    land_area = request.json["land_area"]
+    latitude = request.json["latitude"]
+    longitude = request.json["longitude"]
+
+    print(land_area)
+    print(housing_category)
+    print(latitude)
 
     # Use the input values to predict() the price of the flat
     price = 10000

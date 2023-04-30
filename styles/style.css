@@ -72,3 +72,22 @@
         opacity: 0;
     }
 }
+
+.inputs{
+    display:grid;
+    grid-template-columns: max-content max-content;
+    grid-gap:10px;
+}
+
+label{
+    /*margin: 5%;
+    width: 45%;
+    display: block;*/
+    text-align: right;
+}
+
+button{
+    position: relative;
+}
+
+
