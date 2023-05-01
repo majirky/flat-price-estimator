@@ -16,7 +16,7 @@ def show_info(data_to_show):
     data_to_show.info()
 
 
-def show_sample(data_to_show):
+def show_sample(data_to_show, sample=30):
     """
     shows sample of dataset with custom settings to show every column in non-interacitve shell
     :param data_to_show: data
@@ -24,7 +24,7 @@ def show_sample(data_to_show):
     """
     pd.set_option('display.max_columns', 500)
     pd.set_option('display.width', 5000)
-    to_show = data_to_show.sample(50)
+    to_show = data_to_show.sample(sample)
     display(to_show)
 
 
@@ -56,10 +56,13 @@ class Loader:
         self.data.drop(self.data.loc[self.data["price"] == "Cenadohodou"].index, inplace=True)
         self.data.drop(self.data.loc[self.data["price"] == "InfovRK"].index, inplace=True)
         self.data.drop("price_per_meter", inplace=True, axis=1)
+        self.data.drop("lat", inplace=True, axis=1)
+        self.data.drop("long", inplace=True, axis=1)
 
         self.data["living_area"] = [str(row).replace(',', '.') for row in self.data["living_area"]]
         self.data["land_area"] = [str(row).replace(',', '.') for row in self.data["land_area"]]
         self.data["price"] = [str(row).replace(',', '.') for row in self.data["price"]]
+        self.data["city_area"] = [str(row).replace('Košice I - Sídlisko Ťahanovce', 'Košice I - Ťahanovce') for row in self.data["city_area"]]
 
         self.data["title"] = self.data["title"].astype("string")
         self.data["link"] = self.data["link"].astype("string")
@@ -78,12 +81,12 @@ class Loader:
         Uses encoder for categorial attributes. Creates ML ready dataset
         :return: updates self.data_prepared and scalers. nothing to return
         """
-        numeric_data = pd.DataFrame(self.data[["living_area", "land_area", "lat", "long"]])
+        numeric_data = pd.DataFrame(self.data[["living_area", "land_area"]])
 
         # use numeric attribute scaler model and standardize numeric data
         model = self.scaler_numeric_data.fit(numeric_data)
         standardized = model.transform(numeric_data)
-        numeric_standardized = pd.DataFrame(standardized, columns=["living_area", "land_area", "lat", "long"])
+        numeric_standardized = pd.DataFrame(standardized, columns=["living_area", "land_area"])
 
         # use price scaler model and standardize price
         # reason to use differend scaler model is that, after prediction we want to destandardize price,
@@ -100,8 +103,6 @@ class Loader:
         self.data_prepared = pd.DataFrame(categorial_dummies, dtype=np.uint8)
         self.data_prepared["living_area"] = numeric_standardized["living_area"]
         self.data_prepared["land_area"] = numeric_standardized["land_area"]
-        self.data_prepared["lat"] = numeric_standardized["lat"]
-        self.data_prepared["long"] = numeric_standardized["long"]
 
         self.data_prepared["price"] = price_standardized
 
