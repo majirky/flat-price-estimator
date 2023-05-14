@@ -75,15 +75,6 @@
           <label for="living_area">Living area:</label>
           <input type="number" id="living_area" name="living_area" step="any" v-model="living_area">
 
-          <label for="land_area">Land area:</label>
-          <input type="number" id="land_area" name="land_area" step="any" v-model="land_area">
-
-          <label for="latitude">Latitude of your building (rounded on 7 digits):</label>
-          <input type="number" id="latitude" name="latitude" step="any" v-model="latitude">
-
-          <label for="Longitude">Longitude of your building (rounded on 7 digits):</label>
-          <input type="number" id="Longitude" name="Longitude" step="any" v-model="longitude">
-
           <br>
           <button @click="submitForm">Submit</button>
         </div>
@@ -102,9 +93,6 @@
           city_area: null,
           housing_state: null,
           living_area: null,
-          land_area: null,
-          latitude: null,
-          longitude: null
         },
         methods: {
           submitForm: function() {
@@ -114,9 +102,6 @@
               city_area: this.city_area,
               housing_state: this.housing_state,
               living_area: this.living_area,
-              land_area: this.land_area,
-              latitude: this.latitude,
-              longitude: this.longitude
             })
             .then(function(response) {
               // Handle the response from the server

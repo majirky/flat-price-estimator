@@ -4,8 +4,6 @@ from sklearn.preprocessing import MinMaxScaler
 import numpy as np
 from sklearn.model_selection import train_test_split
 
-# TODO: ťahanovce == sidlisko ťahanovce
-
 
 def show_info(data_to_show):
     """
@@ -50,20 +48,26 @@ class Loader:
         converts data to correct data type
         :return: modifies self.data. nothing to return
         """
+        # only flats on sale
         self.data = self.data[self.data["housing"] == "Byty"]
         self.data = self.data[self.data["housing_type"] == "Predaj"]
 
+        # drop rows without price
         self.data.drop(self.data.loc[self.data["price"] == "Cenadohodou"].index, inplace=True)
         self.data.drop(self.data.loc[self.data["price"] == "InfovRK"].index, inplace=True)
+
+        # drop unimportant cols
         self.data.drop("price_per_meter", inplace=True, axis=1)
         self.data.drop("lat", inplace=True, axis=1)
         self.data.drop("long", inplace=True, axis=1)
+        self.data.drop("land_area", inplace=True, axis=1)
 
+        # replace , to . and unify value for ťahanovce
         self.data["living_area"] = [str(row).replace(',', '.') for row in self.data["living_area"]]
-        self.data["land_area"] = [str(row).replace(',', '.') for row in self.data["land_area"]]
         self.data["price"] = [str(row).replace(',', '.') for row in self.data["price"]]
         self.data["city_area"] = [str(row).replace('Košice I - Sídlisko Ťahanovce', 'Košice I - Ťahanovce') for row in self.data["city_area"]]
 
+        # astypes
         self.data["title"] = self.data["title"].astype("string")
         self.data["link"] = self.data["link"].astype("string")
         self.data["date"] = self.data["date"].astype("string")
@@ -73,7 +77,14 @@ class Loader:
         self.data["city_area"] = self.data["city_area"].astype("category")
         self.data["housing_type"] = self.data["housing_type"].astype("category")
         self.data["living_area"] = self.data["living_area"].astype("float64")
-        self.data["land_area"] = self.data["land_area"].astype("float64")
+
+        # drop rows that has very low price eg. 1 or 10. Those are probablly wrong inputs
+        self.data.drop(self.data.loc[self.data["price"] < 10].index, inplace=True)
+
+        # drop rows, that its city area atribute does not occur in dataset more than 5 times
+        city_area_counts = self.data["city_area"].value_counts()
+        city_area_few_values = city_area_counts.loc[city_area_counts < 5].index
+        self.data = self.data[~self.data["city_area"].isin(city_area_few_values)]
 
     def prepare_data(self):
         """
@@ -81,12 +92,12 @@ class Loader:
         Uses encoder for categorial attributes. Creates ML ready dataset
         :return: updates self.data_prepared and scalers. nothing to return
         """
-        numeric_data = pd.DataFrame(self.data[["living_area", "land_area"]])
+        numeric_data = pd.DataFrame(self.data[["living_area"]])
 
         # use numeric attribute scaler model and standardize numeric data
         model = self.scaler_numeric_data.fit(numeric_data)
         standardized = model.transform(numeric_data)
-        numeric_standardized = pd.DataFrame(standardized, columns=["living_area", "land_area"])
+        numeric_standardized = pd.DataFrame(standardized, columns=["living_area"])
 
         # use price scaler model and standardize price
         # reason to use differend scaler model is that, after prediction we want to destandardize price,
@@ -102,7 +113,6 @@ class Loader:
         # put modified data back to one dataframe -> ML ready
         self.data_prepared = pd.DataFrame(categorial_dummies, dtype=np.uint8)
         self.data_prepared["living_area"] = numeric_standardized["living_area"]
-        self.data_prepared["land_area"] = numeric_standardized["land_area"]
 
         self.data_prepared["price"] = price_standardized
 

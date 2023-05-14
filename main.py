@@ -1,5 +1,5 @@
 from DataLoader import Loader, show_sample, show_info
-from Model import build_nn_model
+from MLmodel.Model import build_nn_model
 from keras.optimizers import Adam
 
 import pandas as pd
