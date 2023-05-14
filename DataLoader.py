@@ -41,6 +41,7 @@ class Loader:
 
         self.scaler_numeric_data = MinMaxScaler(feature_range=(-1, 1))
         self.scaler_price = MinMaxScaler(feature_range=(-1, 1))
+        self.encoded = None
 
     def clean_data(self):
         """
@@ -107,11 +108,11 @@ class Loader:
 
         # make encoder for categorial attributes
         categorial_data = pd.DataFrame(self.data[["housing_category", "city_area", "housing_state"]])
-        categorial_dummies = pd.get_dummies(categorial_data[["housing_category", "city_area", "housing_state"]])
-        categorial_dummies = categorial_dummies.reset_index(drop=True)
+        self.encoded = pd.get_dummies(categorial_data[["housing_category", "city_area", "housing_state"]])
+        self.encoded = self.encoded.reset_index(drop=True)
 
         # put modified data back to one dataframe -> ML ready
-        self.data_prepared = pd.DataFrame(categorial_dummies, dtype=np.uint8)
+        self.data_prepared = pd.DataFrame(self.encoded, dtype=np.uint8)
         self.data_prepared["living_area"] = numeric_standardized["living_area"]
 
         self.data_prepared["price"] = price_standardized
