@@ -43,10 +43,12 @@ def predict_price():
     X_predict["living_area"] = numeric_standardized["living_area"]
 
 
-    price_output = model.predict(X_predict)[0][0]
-    # destandardize
-    print(price_output)
-    price = 100
+    price_output = np.array(model.predict(X_predict)[0][0])
+    # destandardize and convert back to float
+    price = loader.scaler_price.inverse_transform(price_output.reshape(-1, 1))
+    price = list(price[0])
+    price = float(price[0])
+    price = round(price, 2)
 
     return jsonify({'price': price})
 

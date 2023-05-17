@@ -116,4 +116,17 @@ input::-webkit-inner-spin-button {
   display: none;
 }
 
+.responseText{
+    font-family: 'VT323', monospace;
+}
+
+.responseHidden{
+    display: none;
+}
+
+#responseContainer{
+    position: relative;
+    padding-top: 20px;
+}
+
 

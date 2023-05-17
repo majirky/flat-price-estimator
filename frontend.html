@@ -24,7 +24,7 @@
       </div>
 
       <div class="box">
-        <h1>druhe</h1>
+        <h1>TODO</h1>
       </div>
 
       <div class="box" id="app">
@@ -77,12 +77,16 @@
 
           <br>
           <button @click="submitForm">Submit</button>
+          <br>
+          <div id="responseContainer" class="responseHidden">
+            <p class="responseText">
+              Predicted price is: <br><br> <b><span id="responseValue"></span></b>
+            </p>
+          </div>
+
         </div>
-        
-        
 
       </div>
-
     </div>
 
     <script>
@@ -106,6 +110,8 @@
             .then(function(response) {
               // Handle the response from the server
               console.log(response);
+              document.getElementById('responseContainer').classList.remove('responseHidden');
+              document.getElementById('responseValue').innerText = response.data.price;
             })
             .catch(function(error) {
               // Handle any errors
