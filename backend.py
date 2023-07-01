@@ -48,7 +48,8 @@ def predict_price():
     price = loader.scaler_price.inverse_transform(price_output.reshape(-1, 1))
     price = list(price[0])
     price = float(price[0])
-    price = round(price, 2)
+    price = round(price, 0)
+    price = f"{price}"
 
     return jsonify({'price': price})
 

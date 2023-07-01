@@ -111,6 +111,20 @@ input{
     padding: 3px;
 }
 
+p{
+    font-family: 'VT323', monospace;
+    color: black;
+    text-align: justify;
+    width: 50%;
+    line-height: 1.5em;
+}
+
+h1{
+    font-family: 'VT323', monospace;
+    color: black;
+    margin-right: 10%;
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   display: none;
