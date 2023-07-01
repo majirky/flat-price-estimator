@@ -8,11 +8,24 @@ enabling it to make informed predictions on flat values.
      
 By leveraging this technology, potential buyers, sellers, and real estate professionals can make well-informed decisions and gain valuable insights
 into the market conditions.   
-     
-[flat:|:AI in use](docs/flatAI.png)
-*Flat AI estimates value of specific flat*
-     
-[Real world flat](docs/flat_ad.png)
-*Real world flat advertised for sale*
+
+### Usecase
+
+<figure>
+    <img src="docs/flat_ad.png"
+         alt="flat ad"
+         width="600">
+    <figcaption>Real world flat advertised for sale.</figcaption>
+</figure>   
+
+------------------------     
+
+<figure>
+    <img src="docs/flatAI.png"
+         alt="flat:|:AI in use"
+         width="600">
+    <figcaption>Flat AI estimates value of specific flat.</figcaption>
+</figure>    
+
 
 
